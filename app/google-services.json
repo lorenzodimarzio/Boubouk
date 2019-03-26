@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "294357876886",
+    "firebase_url": "https://boobook-d3add.firebaseio.com",
+    "project_id": "boobook-d3add",
+    "storage_bucket": "boobook-d3add.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:294357876886:android:5c07ce826dc1b54e",
+        "android_client_info": {
+          "package_name": "it.uniroma1.boobook"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "294357876886-kcf85nndfno4728g7f0ejt0fv6iuhcp7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "it.uniroma1.boobook",
+            "certificate_hash": "7ccaa759275d2903fb61dbcf38c6b294b5befdbf"
+          }
+        },
+        {
+          "client_id": "294357876886-r3gat64r18lok435n6nesq09r66a4jc3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvqdxyLC6eIUr5F0ZyH2fi_rKv7tLXkNw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "294357876886-r3gat64r18lok435n6nesq09r66a4jc3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
