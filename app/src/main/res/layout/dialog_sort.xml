@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="?dialogPreferredPadding"
+    android:paddingTop="?dialogPreferredPadding"
+    android:paddingRight="?dialogPreferredPadding"
+    android:paddingBottom="?dialogPreferredPadding">
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/sort_by_author"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/author" />
+
+        <RadioButton
+            android:id="@+id/sort_by_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/title" />
+    </RadioGroup>
+</LinearLayout>
