@@ -3,12 +3,56 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingLeft="?dialogPreferredPadding"
-    android:paddingTop="?dialogPreferredPadding"
-    android:paddingRight="?dialogPreferredPadding"
-    android:paddingBottom="?dialogPreferredPadding">
+    android:padding="?dialogPreferredPadding">
 
-    <RadioGroup
+    <LinearLayout
+        android:id="@+id/sort_by_author"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/sort_by_author"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/check_icon"
+            android:src="@drawable/ic_done_black_24dp"
+            android:tint="@android:color/darker_gray" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/sort_by_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/sort_by_title"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/check_icon"
+            android:src="@drawable/ic_done_black_24dp"
+            android:tint="@android:color/darker_gray"
+            android:visibility="invisible" />
+    </LinearLayout>
+
+    <!--<RadioGroup
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -23,5 +67,5 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/title" />
-    </RadioGroup>
+    </RadioGroup>-->
 </LinearLayout>

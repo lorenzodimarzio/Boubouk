@@ -1,11 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/activityBackground"
+    android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="it.uniroma1.boubouk.SearchOnlineActivity"
     tools:showIn="@layout/activity_search_online">
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:id="@+id/search_bar_layout_linear"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_margin="8dp"
+        android:background="@drawable/background_search_white"
+        android:focusableInTouchMode="false"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/search_icon"
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:contentDescription="@string/search_icon"
+            android:scaleX="0.5"
+            android:scaleY="0.5"
+            android:src="@drawable/ic_search_black_24dp"
+            android:tint="@android:color/darker_gray" />
+
+        <EditText
+            android:id="@+id/search_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:ems="10"
+            android:hint="@string/search_by_keyword_title_author_isbn"
+            android:imeOptions="actionSearch"
+            android:inputType="textPersonName"
+            android:textColor="#000000"
+            android:textColorHint="@android:color/darker_gray"
+            tools:ignore="Autofill" />
+
+        <ImageView
+            android:id="@+id/crossVoice"
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:contentDescription="@string/clear_text_vocal_search_icon"
+            android:onClick="clearSearchText"
+            android:scaleX="0.5"
+            android:scaleY="0.5"
+            android:src="@drawable/ic_keyboard_voice_black_24dp"
+            android:tint="@android:color/darker_gray"
+            android:visibility="visible" />
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:indeterminate="true"
+        android:visibility="invisible" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/search_results_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
+</LinearLayout>

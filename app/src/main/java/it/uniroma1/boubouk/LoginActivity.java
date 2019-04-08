@@ -1,20 +1,14 @@
 package it.uniroma1.boubouk;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.Toast;
+import android.widget.ProgressBar;
 
-import com.facebook.AccessToken;
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -24,7 +18,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
@@ -32,14 +25,12 @@ import com.google.firebase.auth.GoogleAuthProvider;
 public class LoginActivity extends AppCompatActivity {
 
     private static final int RC_SIGN_IN = 123;
-
     private static final String TAG = LoginActivity.class.getSimpleName();
+
+    //private CallbackManager mCallbackManager;
 
     private FirebaseAuth mAuth;
     private GoogleSignInClient mGoogleSignInClient;
-    private CallbackManager mCallbackManager;
-
-    private ImageView logoImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +46,7 @@ public class LoginActivity extends AppCompatActivity {
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
+        /*
         // FACEBOOK
         mCallbackManager = CallbackManager.Factory.create();
         LoginButton loginButton = findViewById(R.id.facebook_login);
@@ -62,7 +54,6 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                Log.d(TAG, "facebook:onSuccess:" + loginResult);
                 handleFacebookAccessToken(loginResult.getAccessToken());
             }
 
@@ -77,12 +68,7 @@ public class LoginActivity extends AppCompatActivity {
                 // ...
             }
         });
-
-        // Load logo
-        logoImageView = findViewById(R.id.logo);
-        /*Glide.with(this).
-                load(getResources().getDrawable(R.drawable.logo)).
-                into(logoImageView);*/
+        */
     }
 
     @Override
@@ -99,7 +85,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         // Pass the activity result back to the Facebook SDK
-        mCallbackManager.onActivityResult(requestCode, resultCode, data);
+        // mCallbackManager.onActivityResult(requestCode, resultCode, data);
 
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
@@ -107,8 +93,16 @@ public class LoginActivity extends AppCompatActivity {
             try {
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = task.getResult(ApiException.class);
-                firebaseAuthWithGoogle(account);
-            } catch (ApiException e) {
+                // Set up progressDialog
+                ProgressDialog progressDialog = Util.createProgressDialog(this, getString(R.string.signing_in));
+                progressDialog.show();
+                if (account != null) {
+                    firebaseAuthWithGoogle(account, progressDialog);
+                } else {
+                    progressDialog.cancel();
+                    throw new Exception();
+                }
+            } catch (Exception e) {
                 // Google Sign In failed, update UI appropriately
                 Util.createSingleButtonAlertDialog(
                         this,
@@ -121,7 +115,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
+    private void firebaseAuthWithGoogle(GoogleSignInAccount acct, final ProgressDialog dialog) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
 
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
@@ -135,6 +129,7 @@ public class LoginActivity extends AppCompatActivity {
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
+                            dialog.cancel();
                             Util.createSingleButtonAlertDialog(
                                     LoginActivity.this,
                                     getString(R.string.warning),
@@ -147,6 +142,7 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
+    /*
     private void handleFacebookAccessToken(AccessToken token) {
         Log.d(TAG, "handleFacebookAccessToken:" + token);
 
@@ -170,15 +166,22 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
     }
+    */
 
     public void signIn(View view) {
-        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-        startActivityForResult(signInIntent, RC_SIGN_IN);
+        if (Util.checkConnection(this)) {
+            Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+            startActivityForResult(signInIntent, RC_SIGN_IN);
+        } else {
+            Util.notifyNoConnection(this);
+        }
+
     }
 
     public void updateUI(FirebaseUser user) {
         if (user != null) {
             Intent intent = new Intent(this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         }
     }

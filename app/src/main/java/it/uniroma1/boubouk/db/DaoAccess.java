@@ -1,10 +1,14 @@
-package it.uniroma1.boubouk;
+package it.uniroma1.boubouk.db;
 
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
+
+import it.uniroma1.boubouk.classes.User;
+import it.uniroma1.boubouk.classes.Book;
+import it.uniroma1.boubouk.classes.BookOwnership;
 
 @Dao
 public interface DaoAccess {

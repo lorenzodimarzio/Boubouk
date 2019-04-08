@@ -2,6 +2,9 @@
 <resources>
     <color name="colorPrimary">#FFD740</color>
     <color name="colorPrimaryDark">#9B6301</color>
-    <color name="colorPrimaryDarkTrasparent">#000000</color>
+    <color name="colorBlack">#000000</color>
     <color name="colorAccent">#FF8F00</color>
+    <color name="colorSelected">#DEDEDE</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="activityBackground">#EEEEEE</color>
 </resources>

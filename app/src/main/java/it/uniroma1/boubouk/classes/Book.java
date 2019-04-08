@@ -1,11 +1,10 @@
-package it.uniroma1.boubouk;
+package it.uniroma1.boubouk.classes;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 @Entity
 public class Book implements Serializable {
